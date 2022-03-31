@@ -1,7 +1,11 @@
 
 PATH:= $(PATH)
 
-all: vbr86 
+all:  run
+
+run: shell
+	./sh mkvhd 41943040  d.vhd
+	qemu-system-i386 -drive format=raw,file=d.vhd || echo bad
 
 vbr86: gas86
 	as vbr.S -o vbr.o
@@ -9,7 +13,6 @@ vbr86: gas86
 	cp mbr.vhd vbr.vhd
 	dd if=vbr.bin of=vbr.vhd bs=512  skip=0 seek=128 count=1
 	dd if=mbr.vhd of=vbr.vhd bs=512  skip=129 seek=129 
-	qemu-system-i386 -drive format=raw,file=vbr.vhd || echo bad
 gas86:
 	as mbr.S -o mbr.o
 	dd if=mbr.o of=mbr.bin bs=1 skip=140 count=512
@@ -53,8 +56,14 @@ x64:
 	cp bootx64.efi M/EFI/BOOT/bootx64.efi
 	qemu-system-x86_64 -cpu qemu64 -bios OVMF.fd -drive driver=vvfat,rw=on,dir=M || echo bad
 
-sh:
-	scc -o sh.exe sh.c
+shell: vbr86
+	rm -f tools/sh.s
+	echo "char mbr[] = {0};" > mbr.h
+	echo "char vbr[] = {0};" > vbr.h
+	scc -o sh.exe tools/sh.c
+	./sh bin2hex mbr.bin mbr.h
+	./sh bin2hex vbr.bin vbr.h
+	scc -o sh.exe tools/sh.c
 
 clean:
 	rm -f sh.exe

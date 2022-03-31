@@ -7,8 +7,6 @@
  *
  */
 
-#include <stdio.h>
-
 static char hex[] = "0123456789ABCDEF";
 int writeOut(FILE *out, int c)
 {
@@ -18,7 +16,7 @@ int writeOut(FILE *out, int c)
 	return 0;
 }
 
-int main (int argc, char *argv[])
+int bin2hex_main (int argc, char *argv[])
 {
 	FILE *in;
 	FILE *out;
@@ -26,6 +24,7 @@ int main (int argc, char *argv[])
 	char a[8];
 	int p;
 	int c;
+	char *vn;
 
 	if (argc < 3) {
 		printf("USAGE: %s  infile outfile\n", argv[0]);
@@ -33,8 +32,16 @@ int main (int argc, char *argv[])
 	}	
 	in = fopen(argv[1], "rb");
 	out = fopen(argv[2], "w+b");
+	fwrite("char ", 1, 5, out); 
+	vn = argv[2];
+	while (*vn && *vn != '.') {
+		fwrite(vn, 1, 1, out); 
+		vn++;
+	}
+	fwrite("[]={\n", 1, 5, out); 
 	p = 0;
 	while (fread(&c, 1, 1, in) == 1) {
+		c &= 0xFF;
 		if (n > 0) {
 			fwrite(", ", 1, 2, out); 
 			if (p == 8) {
@@ -45,7 +52,7 @@ int main (int argc, char *argv[])
 			}
 		}
 		writeOut(out, c);
-		if ((c >= 0x20))  {
+		if (c >= ' ' && c < 0x7F)  {
 			a[p] = c;
 		} else {
 			a[p] = '.';
@@ -59,10 +66,11 @@ int main (int argc, char *argv[])
 			a[p] = ' ';
 			p++;
 		}
-		fwrite(" //", 1, 3, out); 
+		fwrite("   //", 1, 5, out); 
 		fwrite(a, 1, 8, out); 
 		fwrite("\n", 1, 1, out); 
 	}	
+	fwrite("};\n", 1, 3, out); 
 	fclose(in);
 	fclose(out);
 	return 0;

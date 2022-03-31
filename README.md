@@ -1,6 +1,9 @@
 UEFI with Nasm  or GAS
 ======================
 
+Public Domain
+-------------
+
 AMD64, i386 and 8086 boot loaders
 ---------------------------------
 

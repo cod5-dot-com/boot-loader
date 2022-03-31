@@ -1,6 +1,7 @@
 #           27 march MMXXII PUBLIC DOMAIN by Jean-Marc Lienher
 #           The author disclaims copyright to this source code.
-
+# https://wiki.osdev.org/FAT#Boot_Record
+ 
 # VBR is loaded by the MBR at address 0x0000:7C00
 # %dx contains the BIOS disk id
 # %ebx contains the LBA address os the VBR
@@ -13,11 +14,63 @@
 
 _start:
 	jmp bypass
-
+	nop
+.org 0x03
 public_domain:
-.ascii "Public Domain Operating System"
+.ascii "cod5.com"
+.org 0x0B
+.word 512	# bytes per sector
+.org 0x0D
+.byte	1	# number of sector per cluster
+.org 0x0E
+.word	1	# number of reserved sector FIXME
+.org 0x10
+.byte 2		# number of FAT
+.org 0x11
+.word 1		# number of root directory entries (must fill an entire sector)
+.org 0x13
+.word 1		# total sectors in the logical volume. 0 if > 65535. count is at LSC
+.org 0x15
+.byte 0xF8	# media descriptor type
+.org 0x16
+.word 0		# unused
+.org 0x18
+.word	1	# number of sector per track
+.org 0x1A
+.word 1		# number of heads
+.org 0x1C
+.long 0		# number of hidden sectors (the LBA of the volume partition)
+.org 0x20
+.long 0		# large sector count (LSC). 0 if < 65536.
 
+.org 0x24
+.long 1		# sectors per FAT. the size of FAT.
+.org 0x28
+.word 0		# flags
+.org 0x2A
+.word 0x0101	# FAT version number
+.org 0x2C
+.long 2		# the cluster number of the root directory 
+.org 0x30
+.word 0		# the sector number of FSInfo structure 
+.org 0x32
+.word 0		# the sector of the backup boot sector
+.org 0x34
+.long 0,0,0	# reserved
 .org 0x40
+.byte 0x80	# drive number
+.org 0x41
+.byte 0		# Windows NT flags
+.org 0x42
+.byte 0x28	# signature
+.org 0x43
+.long 0xDEADBEEF	# volume serial number
+.org 0x47
+.ascii "12345678901"	# volume label padded with " "
+.org 0x52
+.ascii "FAT32   "	# system identifier
+
+.org 0x5A	# boot code
 bypass:
 	movl $0x83, %ebx
 	movb $0x0E, %ah	 	# print V
