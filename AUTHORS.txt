@@ -1,0 +1,17 @@
+
+cod5.com boot-loader
+====================
+
+AUTHORS OF THE SOFTWARE
+=======================
+
+
+CORE DEVELOPERS:
+----------------
+
+	Jean-Marc Lienher, Savagnier Switzerland, jean-marc.lienher@bluewin.ch
+
+
+CONTRIBUTORS:
+-------------
+

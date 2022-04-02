@@ -1,8 +1,9 @@
 UEFI with Nasm  or GAS
 ======================
 
-Public Domain
--------------
+Dedictated to the Public Domain
+-------------------------------
+
 
 AMD64, i386 and 8086 boot loaders
 ---------------------------------
@@ -23,4 +24,8 @@ AMD64, i386 and 8086 boot loaders
 7]: https://github.com/egormkn/MBR-Boot-Manager
 
 8]: https://github.com/jdah
+
+9]: http://t3x.org/subc/index.html
+
+10]: http://collapseos.org/
 

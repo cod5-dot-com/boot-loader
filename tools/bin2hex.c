@@ -23,15 +23,23 @@ int bin2hex_main (int argc, char *argv[])
 	int n = 0;
 	char a[8];
 	int p;
-	int c;
+	char c[4];
 	char *vn;
 
 	if (argc < 3) {
-		printf("USAGE: %s  infile outfile\n", argv[0]);
+		fprintf(stderr, "USAGE: %s  infile outfile\n", argv[0]);
 		exit(-1);
 	}	
 	in = fopen(argv[1], "rb");
+	if (!in) {
+		fprintf(stderr, "cannot open %s\n", argv[1]);
+		exit(-1);
+	}
 	out = fopen(argv[2], "w+b");
+	if (!out) {
+		fprintf(stderr, "cannot open %s\n", argv[2]);
+		exit(-1);
+	}
 	fwrite("char ", 1, 5, out); 
 	vn = argv[2];
 	while (*vn && *vn != '.') {
@@ -40,8 +48,7 @@ int bin2hex_main (int argc, char *argv[])
 	}
 	fwrite("[]={\n", 1, 5, out); 
 	p = 0;
-	while (fread(&c, 1, 1, in) == 1) {
-		c &= 0xFF;
+	while (fread(c, 1, 1, in) == 1) {
 		if (n > 0) {
 			fwrite(", ", 1, 2, out); 
 			if (p == 8) {
@@ -51,9 +58,9 @@ int bin2hex_main (int argc, char *argv[])
 				fwrite("\n", 1, 1, out); 
 			}
 		}
-		writeOut(out, c);
-		if (c >= ' ' && c < 0x7F)  {
-			a[p] = c;
+		writeOut(out, c[0]);
+		if (c[0] >= ' ' && c[0] < 0x7F)  {
+			a[p] = c[0];
 		} else {
 			a[p] = '.';
 		}

@@ -1,0 +1,86 @@
+
+Conditions Générales d'Utilisation pour la Suisse
+=================================================
+ Version du 30 mars 2022
+
+MENTIONS LEGALES
+----------------
+
+Les auteurs sont :
+- Jean-Marc Lienher, Rue de la Cheminée 1, 2065 Savagnier, Suisse
+
+
+Article 1 - Préambule et objet
+-----------
+
+Les auteurs ont développés une compilation de fichiers informatiques destinés
+à être transformés, modifiés, copiés, étudiés ou redistribués pour tous 
+les usages connus et inconnus à ce jour sans restriction.
+
+Les présentes conditions d’utilisation ont vocation à donner à toute personne
+les mêmes droits que les auteurs ont eux-mêmes sur cette compilation. 
+
+
+Article 2 - Responsabilité
+-----------
+
+La compilation est délivrée "telle quelle" sans aucune garantie explicite ou
+implicite.
+
+Les auteurs déclinent toute responsabilité notamment :
+ * pour toute survenance de bogues ;
+ * pour la valeur marchande de la compilation ;
+ * pour toute violation de secret de fabrication ;
+ * pour toute autre violation de droits de propriété ;
+ * pour toute violation de brevets connus ou inconnus ;
+ * pour l'adéquation à un usage spécifique de la compilation ;
+ * pour toute violation de droit d'auteur et pour toute contrefaçon ;
+
+De manière générale, les auteurs déclinent toute responsabilité pour tout 
+dommage, matériel ou immatériel, direct ou indirect, quelles qu'en soient 
+les causes, origines, natures ou conséquences en ce compris notamment 
+les pertes de profits, de clientèle, de données, de dégradation de 
+l’équipement de l’utilisateur ou tout autre perte de biens incorporels 
+pouvant survenir à raison de l'accès de quiconque au contenu de la compilation
+ou d'un de ses dérivés.
+
+L’utilisation de la compilation se fait aux risques de l’utilisateur, 
+qui le reconnaît et s’engage à prendre toutes les précautions nécessaires. 
+
+
+Article 3 - Propriété intellectuelle et autres droits
+-----------
+
+Au maximum permis par la loi, la propriété du contenu de cette compilation
+est léguée à l'Humanité entière et n'est pas protégée par le droit national 
+et international de la propriété intellectuelle. 
+
+Les utilisateurs peuvent reproduire, représenter, diffuser, commercialiser, 
+concéder tout ou partie de quelconque éléments reproduits dans la compilation 
+et tout ou partie de la compilation en général, sans l’accord préalable 
+ou exprès des auteurs.
+
+
+Article 4 - Modifications des présentes Conditions d’utilisation 
+----------- 
+
+Les auteurs se réservent le droit de modifier les dispositions des présentes 
+Conditions d’utilisation à tout moment et sans préavis. 
+
+En cas de contradiction entre les termes de la version française des 
+présentes Conditions d’utilisation et les termes des Conditions d’utilisation 
+traduites dans une autre langue, la version française prévaudra.
+
+
+Article 5 - Loi applicable et compétence juridictionnelle 
+-----------
+
+Les présentes Conditions d’utilisation sont soumises au droit suisse. 
+
+Les parties s'efforceront de régler à l’amiable tous litiges survenant à 
+l’occasion de l’interprétation ou de l’exécution des présentes Conditions 
+d’Utilisation.
+
+En cas d’échec du règlement amiable, tout litige sera soumis à la compétence 
+exclusive des Tribunaux suisses dans le ressort desquels se situe le siège 
+social des auteurs.

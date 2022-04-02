@@ -139,9 +139,15 @@ int mkvhd_main (int argc, char *argv[])
 		exit(-1);
 	}
 	s = atoi(argv[1]);	
+	// FIXME
+	s = 0x10000000;
 	s += 511;
 	s = s / 512;
 	out = fopen(argv[2], "w+b");
+	if (!out) {
+		fprintf(stderr, "cannot open %s\n", argv[2]);
+		return -1;
+	}
 	fat32_set_mbr(mbr, VBR_OFFSET, s - VBR_OFFSET); 
 	fwrite(mbr, 1, 512, out); 
 	o++;

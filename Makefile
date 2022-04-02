@@ -1,7 +1,10 @@
 
 PATH:= $(PATH)
 
-all:  run
+all: ls 
+
+ls: shell
+	./sh ls \dev/./d1.vhd:\
 
 run: shell
 	./sh mkvhd 41943040  d.vhd
@@ -67,6 +70,7 @@ shell: vbr86
 
 clean:
 	rm -f sh.exe
+	rm -f d.vhd
 	rm -f mbr.vhd vbr.vhd
 	rm -f *.o *.so *.efi *.bin
 	rm -f M/EFI/BOOT/*.efi
