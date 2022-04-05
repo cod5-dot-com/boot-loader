@@ -40,6 +40,27 @@ void buf_addstr(Buf *self, char *data)
 	}
 }
 
+void buf_addhex8(Buf *self, int data)
+{
+	char *hex;
+	hex = "0123456789ABCDEF";
+
+	buf_add8(self, hex[(data >> 4) & 0x0F]);
+	buf_add8(self, hex[data & 0x0F]);
+}
+ 
+void buf_addhex16(Buf *self, int data)
+{
+	buf_addhex8(self, (data >> 8) & 0xFF);
+	buf_addhex8(self, data & 0xFF);
+}
+
+void buf_addhex32(Buf *self, int data)
+{
+	buf_addhex16(self, (data >> 16) & 0xFFFF);
+	buf_addhex16(self, data & 0xFFFF);
+}
+
 void buf_addint(Buf *self, int data) 
 {
 	int d;

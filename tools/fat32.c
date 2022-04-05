@@ -193,6 +193,24 @@ Buf *fat32_list(char *pa)
 	int partid;
 	char blk[512];
 	Buf *data;
+	int byte_per_sector;
+	int reserved_sector;
+	int sect_per_cluster;
+	int sect_per_fat;
+	int nb_fat;
+	int root_cluster;
+	int root_sect;
+	int sect_num;
+	int offset;
+	int cluster;
+	int entry;
+	int first_data_sect;
+	int first_fat_sect;
+	int root_dir_sect;
+	int root_entry_cnt;
+	char *p;
+	int i;
+	int v;
 	
 	partid = 0;
 	fat32_error = "";
@@ -218,10 +236,57 @@ Buf *fat32_list(char *pa)
 	s = fat32_start_lba(blk, partid);
 	l = fat32_len_lba(blk, partid);
 
-	buf_addstr(data, "hello\nWorld: ");
-	buf_addint(data, s);
-	buf_addstr(data, " : ");
-	buf_addint(data, l);
+	buf_addstr(data, "Volume start LBA / length : 0x");
+	buf_addhex32(data, s);
+	buf_addstr(data, " / 0x");
+	buf_addhex32(data, l);
+	buf_addstr(data, "\n");
+	
+	fat32_read_block(file, blk, s);
+	byte_per_sector = blk[0x0B] + (blk[0x0C] << 8);  // 512
+	sect_per_cluster = blk[0x0D];			// 1
+	nb_fat = blk[0x10];			// 2
+	reserved_sector = blk[0x0E] + (blk[0x0F] << 8); 
+	root_entry_cnt = blk[0x11] + (blk[0x12] << 8); 
+	sect_per_fat = blk[0x24] + (blk[0x25] << 8) + (blk[0x26] << 16) + (blk[0x27] << 24);
+	root_cluster = blk[0x2C] + (blk[0x2D] << 8) + (blk[0x2E] << 16) + (blk[0x2F] << 24);
+
+ 	root_dir_sect = ((root_entry_cnt * 32) + (byte_per_sector - 1)) / byte_per_sector;
+	
+	first_data_sect = root_dir_sect + sect_per_fat * nb_fat + reserved_sector;
+	first_fat_sect = reserved_sector;
+	cluster = 0;
+	root_sect = s + first_data_sect + (cluster ) * sect_per_cluster; //0x0080800
+
+	buf_addstr(data, "byte/sect : ");
+	buf_addhex32(data, byte_per_sector);
+	buf_addstr(data, " sect_per_fat ");
+	buf_addhex32(data, sect_per_fat);
+	buf_addstr(data, " nb_fat ");
+	buf_addhex32(data, nb_fat);
+	buf_addstr(data, " reserved ");
+	buf_addhex32(data, reserved_sector);
+	buf_addstr(data, " sect/cluster ");
+	buf_addhex32(data, sect_per_cluster);
+	buf_addstr(data, " root_cluster ");
+	buf_addhex32(data, root_cluster);
+	buf_addstr(data, " root_sect ");
+	buf_addhex32(data, root_sect * 512);
+	buf_addstr(data, "\n");
+	
+
+	fat32_read_block(file, blk, root_sect);
+	buf_addstr(data, blk);
+	buf_addstr(data, "\n");
+
+	cluster = -2;
+	sect_num = s + reserved_sector + ((cluster << 2) / byte_per_sector);
+	offset = (cluster << 2) % byte_per_sector;
+	fat32_read_block(file, blk, sect_num);
+	entry = blk[offset] + (blk[offset+1] << 8) + (blk[offset+2] << 16) + ((blk[offset+3] & 0x0F) << 24);
+	buf_addstr(data, "fat");
+	buf_addhex32(data, entry);
+	buf_addstr(data, "\n");
 
 	// buf_dispose(data);
 	return data;

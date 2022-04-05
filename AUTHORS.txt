@@ -1,6 +1,6 @@
 
-cod5.com boot-loader
-====================
+cod5.com PC boot-loader
+=======================
 
 AUTHORS OF THE SOFTWARE
 =======================

@@ -1,8 +1,14 @@
-UEFI with Nasm  or GAS
-======================
+UEFI with Nasm or GNU GAS
+=========================
 
 Dedictated to the Public Domain
 -------------------------------
+
+For International "license" see LICENSE.txt
+
+For Switzerland "EULA" see CGU.ch.txt
+
+The list of the authors is in AUTHORS.txt
 
 
 AMD64, i386 and 8086 boot loaders
