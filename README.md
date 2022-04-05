@@ -35,3 +35,5 @@ AMD64, i386 and 8086 boot loaders
 
 10]: http://collapseos.org/
 
+11]: https://serenityos.org/
+
